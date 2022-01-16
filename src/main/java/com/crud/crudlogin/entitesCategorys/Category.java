@@ -20,7 +20,6 @@ public class Category implements Serializable{
 	private String name;
 	
 	public Category() {
-		
 	}
 
 	public Category(Long id, String name) {
