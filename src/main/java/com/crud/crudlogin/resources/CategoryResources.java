@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crud.crudlogin.dto.CategoryDTO;
 import com.crud.crudlogin.entitesCategorys.Category;
 import com.crud.crudlogin.service.CategoryService;
 
@@ -20,8 +21,8 @@ public class CategoryResources extends Category {
 	private CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll(){
-		List<Category> list = service.catchAll();
+	public ResponseEntity<List<CategoryDTO>> findAll(){
+		List<CategoryDTO> list = service.catchAll();
 		return ResponseEntity.ok().body(list);
 	}
 }

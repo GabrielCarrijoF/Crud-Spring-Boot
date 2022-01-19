@@ -1,11 +1,13 @@
 package com.crud.crudlogin.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crud.crudlogin.dto.CategoryDTO;
 import com.crud.crudlogin.entitesCategorys.Category;
 import com.crud.crudlogin.repositories.CategoryRepository;
 
@@ -16,7 +18,14 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	@Transactional(readOnly = true) //
-	public List<Category> catchAll(){
-		return repository.findAll();
+	public List<CategoryDTO> catchAll(){
+		List<Category> list = repository.findAll();
+		
+		//Transformando list category em lisDTO	
+		List<CategoryDTO> listDTO = new ArrayList<>();
+		for(Category cat:list) {
+			listDTO.add(new CategoryDTO(cat));
+		}
+		return listDTO;
 	}
 }
