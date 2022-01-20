@@ -2,6 +2,8 @@ package com.crud.crudlogin.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +29,13 @@ public class CategoryService {
 			listDTO.add(new CategoryDTO(cat));
 		}
 		return listDTO;
+	}
+
+	@Transactional(readOnly = true)
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);//busca nunca sera nula
+		Category entity = obj.get();
+		return new CategoryDTO(entity);
+		
 	}
 }
