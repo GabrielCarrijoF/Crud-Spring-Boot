@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.crud.crudlogin.dto.CategoryDTO;
 import com.crud.crudlogin.entitesCategorys.Category;
 import com.crud.crudlogin.repositories.CategoryRepository;
+import com.crud.crudlogin.service.exceptions.EntityNotFoundException;
 
 @Service  // Registrar a classe como componente que participa do sistema de injeção de dependencia
 public class CategoryService {
@@ -34,7 +35,7 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> obj = repository.findById(id);//busca nunca sera nula
-		Category entity = obj.get();
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Erro Interno do Servidor"));
 		return new CategoryDTO(entity);
 		
 	}
