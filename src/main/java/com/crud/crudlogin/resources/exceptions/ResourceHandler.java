@@ -20,7 +20,7 @@ public class ResourceHandler {
 		StandardError standardError = new StandardError();
 		standardError.setTimesStamp(Instant.now());
 		standardError.setStatus(HttpStatus.NOT_FOUND.value());
-		standardError.setError("Pagina Não Encontrada");  //Configuração da mensagem de erro utilizando Advice
+		standardError.setError("Recurso Não Encontrado");  //Configuração da mensagem de erro utilizando Advice
 		standardError.setMenssage(entityNotFoundException.getMessage());
 		standardError.setPath(httpServletRequest.getRequestURI());
 		

@@ -35,8 +35,17 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> obj = repository.findById(id);//busca nunca sera nula
-		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Erro Interno do Servidor"));
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Erro Interno do Servidor"));// Leva para minha nova exception
 		return new CategoryDTO(entity);
 		
+	}
+	
+	@Transactional
+	public CategoryDTO insert(CategoryDTO categoryDTO) {
+		
+		Category entity = new Category();
+		entity.setName(entity.getName());
+		entity = repository.save(entity);
+		return new CategoryDTO(entity);
 	}
 }
