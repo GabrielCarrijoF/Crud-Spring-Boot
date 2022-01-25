@@ -7,11 +7,11 @@ public class StandardError implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Instant timesStamp;// momento que esoutrou a exceção
+	private Instant timesStamp;
 	private Integer status;
 	private String error;
 	private String menssage;
-	private String path; // caminho da minha requisição
+	private String path;
 	
 	public StandardError() {
 		
