@@ -3,7 +3,8 @@ package com.crud.crudlogin.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.crud.crudlogin.dto.CategoryDTO;
 import com.crud.crudlogin.entitesCategorys.Category;
 import com.crud.crudlogin.repositories.CategoryRepository;
-import com.crud.crudlogin.service.exceptions.EntityNotFoundException;
+import com.crud.crudlogin.service.exceptions.ResourceNotFoundException;
 
 @Service  // Registrar a classe como componente que participa do sistema de injeção de dependencia
 public class CategoryService {
@@ -22,10 +23,10 @@ public class CategoryService {
 	
 	@Transactional(readOnly = true) //
 	public List<CategoryDTO> catchAll(){
-		List<Category> list = repository.findAll();
 		
-		//Transformando list category em lisDTO	
-		List<CategoryDTO> listDTO = new ArrayList<>();
+		List<Category> list = repository.findAll();
+		List<CategoryDTO> listDTO = new ArrayList<>(); //Transformando list category em lisDTO	
+		
 		for(Category cat:list) {
 			listDTO.add(new CategoryDTO(cat));
 		}
@@ -34,18 +35,33 @@ public class CategoryService {
 
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
-		Optional<Category> obj = repository.findById(id);//busca nunca sera nula
-		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Erro Interno do Servidor"));// Leva para minha nova exception
+		Optional<Category> obj = repository.findById(id);//Efetiva o acesso ao banco de dados
+		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Erro Interno do Servidor"));// Leva para minha nova exception
 		return new CategoryDTO(entity);
 		
 	}
 	
 	@Transactional
 	public CategoryDTO insert(CategoryDTO categoryDTO) {
-		
 		Category entity = new Category();
-		entity.setName(entity.getName());
+		entity.setName(categoryDTO.getName());
 		entity = repository.save(entity);
 		return new CategoryDTO(entity);
 	}
+
+	@Transactional
+	public CategoryDTO update(Long id,CategoryDTO categoryDTO) {
+	//Não mexe no banco e instancia um objeto provisorio com dados e o ID no objeto apenas quando salva ele vai no banco
+		try{
+		Category entity = repository.getOne(id);
+		entity.setName(categoryDTO.getName());
+		entity = repository.save(entity);
+		return new CategoryDTO(entity);
+		}
+		catch(EntityNotFoundException entityNotFoundException){
+			throw new ResourceNotFoundException("ID não encontrado"+ id);
+		}
+	}
+	
 }
+

@@ -1,12 +1,14 @@
 package com.crud.crudlogin.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,10 +21,17 @@ import com.crud.crudlogin.service.CategoryService;
 @RestController // Configurar coisas no codigo
 @RequestMapping(value = "/categories")
 public class CategoryResources extends Category {
-
 	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	private CategoryService service;
+	
+	@GetMapping
+	public ResponseEntity<List<CategoryDTO>> catchAll(){
+		
+		List<CategoryDTO> list = service.catchAll();
+		return ResponseEntity.ok().body(list);
+	}
 	
 	@GetMapping(value ="/{id}")
 	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
@@ -32,10 +41,18 @@ public class CategoryResources extends Category {
 	
 	@PostMapping
 	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO categoryDTO){
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoryDTO.getId()).toUri(); // Estrutura para inserir um objeto e responder da forma correta
-		
 		categoryDTO = service.insert(categoryDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(categoryDTO.getId()).toUri(); // Estrutura para inserir um objeto e responder da forma correta
+		
 		return ResponseEntity.created(uri).body(categoryDTO);
 	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+		
+		categoryDTO = service.update(id ,categoryDTO);
+		return ResponseEntity.ok().body(categoryDTO);
+			
+	}
 }
-
