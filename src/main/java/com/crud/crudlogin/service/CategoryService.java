@@ -62,6 +62,5 @@ public class CategoryService {
 			throw new ResourceNotFoundException("ID não encontrado"+ id);
 		}
 	}
-	
 }
 
