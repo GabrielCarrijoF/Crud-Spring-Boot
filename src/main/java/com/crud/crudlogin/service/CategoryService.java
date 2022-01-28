@@ -7,12 +7,15 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crud.crudlogin.dto.CategoryDTO;
 import com.crud.crudlogin.entitesCategorys.Category;
 import com.crud.crudlogin.repositories.CategoryRepository;
+import com.crud.crudlogin.service.exceptions.DataBaseException;
 import com.crud.crudlogin.service.exceptions.ResourceNotFoundException;
 
 @Service  // Registrar a classe como componente que participa do sistema de injeção de dependencia
@@ -60,6 +63,18 @@ public class CategoryService {
 		}
 		catch(EntityNotFoundException entityNotFoundException){
 			throw new ResourceNotFoundException("ID não encontrado"+ id);
+		}
+	}
+
+	public void delete(Long id) {
+		try {
+		repository.deleteById(id);
+		}
+		catch(EmptyResultDataAccessException emptyResultDataAccessException) { //Caso tentem deletar um id que n existe
+			throw new ResourceNotFoundException("ID "+ id + " não encontrado!");
+		}
+		catch(DataIntegrityViolationException dataIntegrityViolationException) { //Caso tentem deletar algo que n pode
+			throw new DataBaseException("Violação de Integridade");
 		}
 	}
 }
