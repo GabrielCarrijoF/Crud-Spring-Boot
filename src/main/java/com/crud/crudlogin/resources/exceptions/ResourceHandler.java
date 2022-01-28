@@ -31,7 +31,7 @@ public class ResourceHandler {
 	}
 	
 	@ExceptionHandler(DataBaseException.class)
-	public ResponseEntity<StandardError> data(DataBaseException dataBaseException, HttpServletRequest httpServletRequest){
+	public ResponseEntity<StandardError> data(DataBaseException dataBaseException, HttpServletRequest httpServletRequest) {
 		
 		HttpStatus statusException = HttpStatus.BAD_REQUEST; //Erro de requisição
 		StandardError standardError = new StandardError();
@@ -44,5 +44,4 @@ public class ResourceHandler {
 		
 		return ResponseEntity.status(statusException).body(standardError);
 	}
-	
 }
