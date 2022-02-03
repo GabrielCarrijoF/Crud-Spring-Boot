@@ -72,7 +72,7 @@ public class Category implements Serializable{
 	public void preUpdate() {
 		updatedAt = Instant.now();
 	}
-
+	
 	@Override
 	public int hashCode() { // Método padrão para comparação de numeros iguais
 		final int prime = 31;

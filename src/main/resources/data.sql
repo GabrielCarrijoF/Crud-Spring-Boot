@@ -1,3 +1,4 @@
-INSERT INTO tabela_category(name) VALUES('Books');
-INSERT INTO tabela_category(name) VALUES('Electronics');
-INSERT INTO tabela_category(name) VALUES('Computes');
+INSERT INTO tabela_category(name, create_At) VALUES('Books', NOW());
+INSERT INTO tabela_category(name, create_At) VALUES('Electronics',NOW());
+INSERT INTO tabela_category(name, create_At) VALUES('Computes',NOW());
+
