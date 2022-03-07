@@ -13,7 +13,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tabela_category")
+@Table(name = "tb_category")
 public class Category implements Serializable{
 
 	private static final long serialVersionUID = 1L; // Facilitar a leitura em redes e etc
@@ -24,10 +24,10 @@ public class Category implements Serializable{
 	private String name;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createAt;
+	private Instant created_At;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
+	private Instant updated_At;
 	
 	
 	
