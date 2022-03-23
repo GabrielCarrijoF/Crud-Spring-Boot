@@ -56,21 +56,21 @@ public class Category implements Serializable{
 	}
 
 	public Instant getCreateAt() {
-		return createAt;
+		return created_At;
 	}
 
 	public Instant getUpdatedAt() {
-		return updatedAt;
+		return updated_At;
 	}
 	
 	@PrePersist
 	public void prePersist() {
-		createAt = Instant.now();
+		created_At = Instant.now();
 	}
 	
 	@PreUpdate
 	public void preUpdate() {
-		updatedAt = Instant.now();
+		updated_At = Instant.now();
 	}
 	
 	@Override
