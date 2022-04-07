@@ -1,6 +1,5 @@
 package com.crud.crudlogin.entitesCategorys;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_product")
-public class Product implements Serializable{
-	private static final Long serialVersionUID = 1L;
+public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

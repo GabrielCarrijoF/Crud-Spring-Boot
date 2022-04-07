@@ -25,8 +25,7 @@ import com.crud.crudlogin.service.CategoryService;
 
 @RestController // Configurar coisas no codigo
 @RequestMapping(value = "/categories")
-public class CategoryResources extends Category {
-	private static final long serialVersionUID = 1L;
+public class CategoryResources {
 	
 	@Autowired
 	private CategoryService service;

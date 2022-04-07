@@ -1,13 +1,9 @@
 package com.crud.crudlogin.dto;
 
-import java.io.Serializable;
-
 import com.crud.crudlogin.entitesCategorys.Category;
 
-public class CategoryDTO implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+public class CategoryDTO {
+	
 	private Long id;
 	private String name;
 

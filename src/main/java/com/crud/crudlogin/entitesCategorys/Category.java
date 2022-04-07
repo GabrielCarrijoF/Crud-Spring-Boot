@@ -1,6 +1,5 @@
 package com.crud.crudlogin.entitesCategorys;
 
-import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -14,9 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_category")
-public class Category implements Serializable{
-
-	private static final long serialVersionUID = 1L; // Facilitar a leitura em redes e etc
+public class Category {
 	
 	@Id //Conversar com jpa para ser ID auto encrementavel
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

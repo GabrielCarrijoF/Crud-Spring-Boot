@@ -25,7 +25,7 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	@Transactional(readOnly = true) //
-	public Page<CategoryDTO> catchAllPaged(PageRequest pageRequest){
+	public Page<CategoryDTO> catchAllPaged(final PageRequest pageRequest){
 		
 		Page<Category> list = repository.findAll(pageRequest);
 		return list.map(x -> new CategoryDTO(x));//Transformando list category em lisDTO	
@@ -33,11 +33,10 @@ public class CategoryService {
 	}
 
 	@Transactional(readOnly = true)
-	public CategoryDTO findById(Long id) {
+	public CategoryDTO findById(final Long id) {
 		Optional<Category> obj = repository.findById(id);//Efetiva o acesso ao banco de dados
 		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Erro Interno do Servidor"));// Leva para minha nova exception
 		return new CategoryDTO(entity);
-		
 	}
 	
 	@Transactional
